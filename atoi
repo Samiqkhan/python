@@ -1,0 +1,30 @@
+def string_to_integer(s):
+    s = s.strip()
+    if not s:
+        return 0
+
+    sign = 1
+    if s[0] in ('-', '+'):
+        if s[0] == '-':
+            sign = -1
+        s = s[1:]
+
+    result = 0
+    for char in s:
+        if char.isdigit():
+            result = result * 10 + int(char)
+        else:
+            break
+
+    result *= sign
+    int_min, int_max = -2**31, 2**31 - 1
+    if result < int_min:
+        return int_min
+    if result > int_max:
+        return int_max
+
+    return result
+
+input_string = "   -42"
+result = string_to_integer(input_string)
+result
