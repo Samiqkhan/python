@@ -1,0 +1,32 @@
+def longest_palindromic_substring(s):
+    def expand_around_center(s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left + 1:right]
+
+    if len(s) == 0:
+        return ""
+
+    longest = s[0]
+    for i in range(len(s)):
+        # Odd length palindromes
+        temp = expand_around_center(s, i, i)
+        if len(temp) > len(longest):
+            longest = temp
+
+        # Even length palindromes
+        temp = expand_around_center(s, i, i + 1)
+        if len(temp) > len(longest):
+            longest = temp
+
+    return longest
+
+# Example string
+input_string = "babad"
+
+# Finding the longest palindromic substring
+result = longest_palindromic_substring(input_string)
+
+
+print(f"The longest palindromic substring in '{input_string}' is '{result}'")
