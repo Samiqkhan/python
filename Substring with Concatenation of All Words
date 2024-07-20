@@ -1,0 +1,40 @@
+def findSubstring(s, words):
+    if not s or not words:
+        return []
+    
+    word_len = len(words[0])
+    num_words = len(words)
+    concat_len = word_len * num_words
+    word_count = {}
+    
+    # Build the frequency map for words
+    for word in words:
+        if word in word_count:
+            word_count[word] += 1
+        else:
+            word_count[word] = 1
+    
+    def is_valid(start):
+        seen = {}
+        for i in range(start, start + concat_len, word_len):
+            word = s[i:i + word_len]
+            if word not in word_count:
+                return False
+            if word in seen:
+                seen[word] += 1
+            else:
+                seen[word] = 1
+            if seen[word] > word_count[word]:
+                return False
+        return True
+    
+    result = []
+
+    for i in range(word_len):
+        left = i
+        while left + concat_len <= len(s):
+            if is_valid(left):
+                result.append(left)
+            left += word_len
+    
+    return result
