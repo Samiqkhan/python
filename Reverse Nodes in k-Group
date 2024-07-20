@@ -1,0 +1,61 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverseKGroup(head: ListNode, k: int) -> ListNode:
+    def reverse_linked_list(head, k):
+        prev, curr = None, head
+        while k > 0:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+            k -= 1
+        return prev
+
+    count = 0
+    ptr = head
+    while ptr:
+        count += 1
+        ptr = ptr.next
+
+    dummy = ListNode(0)
+    dummy.next = head
+    prev, curr = dummy, head
+
+    while count >= k:
+        tail = curr
+        for _ in range(k):
+            next_node = curr.next
+            curr.next = prev.next
+            prev.next = curr
+            curr = next_node
+        tail.next = curr
+        prev = tail
+        count -= k
+
+    return dummy.next
+
+def build_linked_list(values):
+    if not values:
+        return None
+    head = ListNode(values[0])
+    current = head
+    for val in values[1:]:
+        current.next = ListNode(val)
+        current = current.next
+    return head
+
+def linked_list_to_list(node):
+    result = []
+    while node:
+        result.append(node.val)
+        node = node.next
+    return result
+
+head = build_linked_list([1, 2, 3, 4, 5])
+k = 2
+reversed_head = reverseKGroup(head, k)
+output = linked_list_to_list(reversed_head)
+print(output)  # Output: [2, 1, 4, 3, 5]
