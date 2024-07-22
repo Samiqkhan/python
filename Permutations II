@@ -1,0 +1,23 @@
+def permuteUnique(nums):
+    def backtrack(perm, used):
+        if len(perm) == len(nums):
+            results.append(perm[:])
+            return
+        
+        for i in range(len(nums)):
+            if used[i] or (i > 0 and nums[i] == nums[i-1] and not used[i-1]):
+                continue
+            
+            used[i] = True
+            perm.append(nums[i])
+            backtrack(perm, used)
+            used[i] = False
+            perm.pop()
+    
+    nums.sort()  
+    results = []
+    used = [False] * len(nums)
+    backtrack([], used)
+    
+    return results
+
