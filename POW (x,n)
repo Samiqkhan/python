@@ -1,0 +1,22 @@
+def myPow(x, n):
+    if n == 0:
+        return 1.0
+    if n == 1:
+        return x
+    
+    if n < 0:
+        x = 1 / x
+        n = -n
+    
+    half_pow = myPow(x, n // 2)
+    
+    if n % 2 == 0:
+        return half_pow * half_pow
+    else:
+        return x * half_pow * half_pow
+
+# Example usage:
+x = 2.0
+n = 10
+print(myPow(x, n))  # Output: 1024.0
+
