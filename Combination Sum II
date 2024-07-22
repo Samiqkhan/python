@@ -1,0 +1,27 @@
+def combinationSum2(candidates, target):
+    results = []
+    candidates.sort() 
+    
+    def backtrack(combination, start_index, target):
+        if target == 0:
+            results.append(combination[:])
+            return
+        if target < 0:
+            return
+        
+        used = set()
+        for i in range(start_index, len(candidates)):
+            num = candidates[i]
+            if num in used:
+                continue
+            used.add(num)
+            combination.append(num)
+            backtrack(combination, i + 1, target - num)
+            combination.pop()
+    
+    backtrack([], 0, target)
+    return results
+
+candidates = [10,1,2,7,6,1,5]
+target = 8
+print(combinationSum2(candidates, target)) 
