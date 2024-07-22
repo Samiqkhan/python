@@ -1,0 +1,23 @@
+def permute(nums):
+    def backtrack(perm, visited):
+        if len(perm) == len(nums):
+            results.append(perm[:])
+            return
+        
+        for i in range(len(nums)):
+            if not visited[i]:
+                # Mark element as visited
+                visited[i] = True
+                perm.append(nums[i])
+                
+                backtrack(perm, visited)
+                
+        
+                visited[i] = False
+                perm.pop()
+
+    results = []
+    visited = [False] * len(nums)
+    backtrack([], visited)
+    
+    return results
