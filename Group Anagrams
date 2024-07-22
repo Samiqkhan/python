@@ -1,0 +1,13 @@
+from collections import defaultdict
+
+def groupAnagrams(strs):
+    hash_map = defaultdict(list)
+    
+    for s in strs:
+        key = tuple(sorted(s))
+        hash_map[key].append(s)
+    
+    return list(hash_map.values())
+
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(groupAnagrams(strs))
