@@ -1,0 +1,20 @@
+def searchRange(nums, target):
+    def find_index(nums, target, left):
+        lo, hi = 0, len(nums)
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if nums[mid] > target or (left and nums[mid] == target):
+                hi = mid
+            else:
+                lo = mid + 1
+        return lo
+    
+    left_index = find_index(nums, target, True)
+    
+    if left_index == len(nums) or nums[left_index] != target:
+        return [-1, -1]
+    
+    right_index = find_index(nums, target, False) - 1
+    
+    return [left_index, right_index]
+
